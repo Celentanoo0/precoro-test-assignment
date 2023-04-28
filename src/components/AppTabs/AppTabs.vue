@@ -9,7 +9,6 @@ const components = {
   AppLocationsForm,
   AppRolesForm
 }
-
 const props = defineProps({
   tabs: {
     type: Array,
@@ -18,7 +17,6 @@ const props = defineProps({
   }
 })
 const { tabs } = toRefs(props)
-
 const tabsData = ref({
   firstName: '',
   secondName: '',
@@ -168,16 +166,21 @@ const activeTab = ref(tabs.value[0].tabComponentName)
 const changeActiveTab = (newActiveTabName) => {
   activeTab.value = newActiveTabName
 }
+const checkValidation = () => {
 
+}
 const nextTab = () => {
   activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
 }
-const submitPopup = () => {}
+const submitPopup = () => {
+  checkValidation()
+  const dataToSend = JSON.stringify(tabsData.value);
+  console.log(dataToSend)
+}
 
 const lastTabIsReached = computed(
   () => Object.keys(components).indexOf(activeTab.value) < Object.keys(components).length - 1
 )
-
 const actionBtnText = computed(() => {
   return lastTabIsReached.value ? 'Next Step' : 'Invite User'
 })

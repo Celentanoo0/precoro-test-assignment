@@ -51,7 +51,7 @@ const selectAllLocations = (event) => {
           v-for="(location, index) of tabsData.locations"
           :key="`location_id${index}`"
         >
-          <label :for="location.value">{{ location.name }}</label>
+          <label :for="location.id">{{ location.name }}</label>
           <input
             v-model="location.value"
             type="checkbox"
