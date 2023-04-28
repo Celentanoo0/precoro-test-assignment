@@ -1,6 +1,14 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, toRefs } from 'vue'
 
+const props = defineProps({
+  disableAll: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+})
+const { disableAll } = toRefs(props)
 const tabsData = inject('tabsData')
 const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 </script>
@@ -16,32 +24,57 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           name="first-name"
           id="first-name"
           class="app-form__control"
+          :disabled="disableAll"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
         <label for="second-name">Second Name</label>
-        <input v-model="tabsData.secondName" type="text" name="second-name" id="second-name" />
+        <input
+          v-model="tabsData.secondName"
+          type="text"
+          name="second-name"
+          id="second-name"
+          :disabled="disableAll"
+        />
       </div>
     </div>
     <div class="app-form__row">
       <div class="app-form__row-block">
         <label for="email">Email Address</label>
-        <input v-model="tabsData.email" type="email" name="email" id="email" />
+        <input
+          v-model="tabsData.email"
+          type="email"
+          name="email"
+          id="email"
+          :disabled="disableAll"
+        />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
         <label for="phone">Phone Number</label>
-        <input v-model="tabsData.phone" type="text" name="phone" id="phone" />
+        <input
+          v-model="tabsData.phone"
+          type="text"
+          name="phone"
+          id="phone"
+          :disabled="disableAll"
+        />
       </div>
     </div>
 
     <div class="app-form__row">
       <div class="app-form__row-block">
         <label for="position">Position</label>
-        <input type="text" name="position" id="position" v-model="tabsData.position" />
+        <input
+          type="text"
+          name="position"
+          id="position"
+          v-model="tabsData.position"
+          :disabled="disableAll"
+        />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
         <label for="company-select">Available in company</label>
-        <select v-model="tabsData.company" id="company-select">
+        <select v-model="tabsData.company" id="company-select" :disabled="disableAll">
           <option v-for="(companyName, index) of companiesAvailable" :key="index">
             {{ companyName }}
           </option>

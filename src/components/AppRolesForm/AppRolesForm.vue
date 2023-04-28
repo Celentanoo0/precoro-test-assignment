@@ -1,6 +1,14 @@
 <script setup>
-import { computed, inject } from 'vue'
+import { computed, inject, toRefs } from 'vue'
 
+const props = defineProps({
+  disableAll: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+})
+const { disableAll } = toRefs(props)
 const tabsData = inject('tabsData')
 
 const fullAccessGranted = computed(
@@ -32,7 +40,7 @@ const getDisabledAccessButtons = (accessButtonId) => {
               type="checkbox"
               :name="index"
               :id="index"
-              :disabled="fullAccessGranted"
+              :disabled="fullAccessGranted || disableAll"
             />
           </div>
         </div>
@@ -50,7 +58,7 @@ const getDisabledAccessButtons = (accessButtonId) => {
               type="checkbox"
               :name="managementItem.id"
               :id="managementItem.id"
-              :disabled="getDisabledAccessButtons(managementItem.id)"
+              :disabled="getDisabledAccessButtons(managementItem.id) || disableAll"
             />
           </li>
         </ul>

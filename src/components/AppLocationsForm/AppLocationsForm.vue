@@ -1,9 +1,16 @@
 <script setup>
-import { inject } from 'vue'
+import { inject, toRefs } from 'vue'
 
+const props = defineProps({
+  disableAll: {
+    type: Boolean,
+    required: false,
+    default: false
+  }
+})
+const { disableAll } = toRefs(props)
 const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
 const tabsData = inject('tabsData')
-
 const selectAllLocations = (event) => {
   if (event.target.checked) {
     for (const elem of tabsData.value.locations) {
@@ -25,6 +32,7 @@ const selectAllLocations = (event) => {
         v-model="tabsData.mainLocation"
         name="main-location"
         id="main-location"
+        :disabled="disableAll"
       >
         <option
           v-for="(mainLocation, index) of mainLocations"
@@ -38,10 +46,11 @@ const selectAllLocations = (event) => {
     <div class="app-form__row">
       <label for="select-all">Select All Locations</label>
       <input
-          type="checkbox"
-          name="select-all"
-          id="select-all"
-          @change="selectAllLocations"
+        type="checkbox"
+        name="select-all"
+        id="select-all"
+        @change="selectAllLocations"
+        :disabled="disableAll"
       />
     </div>
     <div class="app-form__row">
@@ -57,6 +66,7 @@ const selectAllLocations = (event) => {
             type="checkbox"
             :name="location.id"
             :id="location.id"
+            :disabled="disableAll"
           />
         </li>
       </ul>

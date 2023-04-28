@@ -1,5 +1,5 @@
 <script setup>
-import {computed, provide, ref, toRefs} from 'vue'
+import { computed, provide, ref, toRefs } from 'vue'
 import AppRolesForm from '@/components/AppRolesForm/AppRolesForm.vue'
 import AppMainInfoForm from '@/components/AppMainInfoForm/AppMainInfoForm.vue'
 import AppLocationsForm from '@/components/AppLocationsForm/AppLocationsForm.vue'
@@ -30,38 +30,38 @@ const tabsData = ref({
     {
       name: 'Berlin',
       id: 'berlin',
-      value: false,
+      value: false
     },
     {
       name: 'Poland Office',
       id: 'poland_office',
-      value: false,
+      value: false
     },
     {
       name: 'Venice Office',
       id: 'venice_office',
-      value: false,
+      value: false
     },
     {
       name: 'Mexico',
       id: 'mexico',
-      value: false,
+      value: false
     },
     {
       name: 'USA Office',
       id: 'usa_office',
-      value: false,
+      value: false
     },
     {
       name: 'Ukraine Kiyv Lukivska 7 Main Office',
       id: 'ua_main_office',
-      value: false,
+      value: false
     },
     {
       name: 'Canada',
       id: 'canada',
-      value: false,
-    },
+      value: false
+    }
   ],
   roles: {
     access: {
@@ -70,40 +70,40 @@ const tabsData = ref({
         values: {
           view_only: false,
           create: false,
-          approve: false,
-        },
+          approve: false
+        }
       },
       purchase_requests: {
         name: 'Purchase requests',
         values: {
           view_only: false,
           create: false,
-          approve: false,
-        },
+          approve: false
+        }
       },
       request_for_proposals: {
         name: 'Request for proposals',
         values: {
           view_only: false,
           create: false,
-          approve: false,
-        },
+          approve: false
+        }
       },
       purchase_orders: {
         name: 'Purchase orders',
         values: {
           view_only: false,
           create: false,
-          approve: false,
-        },
+          approve: false
+        }
       },
       receipts: {
         name: 'Receipts',
         values: {
           view_only: false,
           create: false,
-          approve: false,
-        },
+          approve: false
+        }
       },
       invoices: {
         name: 'Invoices',
@@ -111,8 +111,8 @@ const tabsData = ref({
           view_only: false,
           create: false,
           approve: false,
-          pay: false,
-        },
+          pay: false
+        }
       },
       expenses: {
         name: 'Expenses',
@@ -120,44 +120,45 @@ const tabsData = ref({
           view_only: false,
           create: false,
           approve: false,
-          pay: false,
-        },
-      },
+          pay: false
+        }
+      }
     },
     management: [
       {
         name: 'Configuration',
         id: 'configuration',
-        value: false,
+        value: false
       },
       {
         name: 'Suppliers and items',
         id: 'suppliers_and_items',
-        value: false,
+        value: false
       },
       {
         name: 'Budgets',
         id: 'budgets',
-        value: false,
+        value: false
       },
       {
         name: 'Warehouse manager',
         id: 'warehouse_manager',
-        value: false,
+        value: false
       },
       {
         name: 'Reports',
         id: 'reports',
-        value: false,
+        value: false
       },
       {
         name: 'Admin (Full access)',
         id: 'admin',
-        value: false,
-      },
-    ],
+        value: false
+      }
+    ]
   }
 })
+const disableAll = ref(false)
 
 provide('tabsData', tabsData)
 
@@ -166,15 +167,14 @@ const activeTab = ref(tabs.value[0].tabComponentName)
 const changeActiveTab = (newActiveTabName) => {
   activeTab.value = newActiveTabName
 }
-const checkValidation = () => {
-
-}
+const checkValidation = () => {}
 const nextTab = () => {
   activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
 }
 const submitPopup = () => {
   checkValidation()
-  const dataToSend = JSON.stringify(tabsData.value);
+  disableAll.value = true
+  const dataToSend = JSON.stringify(tabsData.value)
   console.log(dataToSend)
 }
 
@@ -201,12 +201,18 @@ const actionBtnText = computed(() => {
       </li>
     </ul>
     <div class="app-tabs__tabs-content">
-      <component :is="components[activeTab]" />
+      <component :is="components[activeTab]" :disable-all="disableAll" />
     </div>
     <div class="app-tabs__actions-block">
       <div class="app-tabs__toggle-switch" v-if="activeTab === 'AppMainInfoForm'">
-        <input type="checkbox" name="check" id="check" v-model="tabsData.activeInAllComp"/>
-        <span>Active in all companies</span>
+        <input
+          type="checkbox"
+          name="check"
+          id="check"
+          v-model="tabsData.activeInAllComp"
+          :disabled="disableAll"
+        />
+        <label for="check">Active in all companies</label>
         <img src="src/assets/info.svg" alt="info-button" />
       </div>
       <button
