@@ -17,45 +17,48 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
   <form action="#" class="app-form">
     <div class="app-form__row">
       <div class="app-form__row-block">
-        <label for="first-name">First Name</label>
+        <label for="first-name" class="app-form__control-name">First Name</label>
         <input
           v-model="tabsData.firstName"
           type="text"
           name="first-name"
           id="first-name"
-          class="app-form__control"
+          class="app-form__control app-form__control_margin"
           :disabled="disableAll"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
-        <label for="second-name">Second Name</label>
+        <label for="second-name" class="app-form__control-name">Second Name</label>
         <input
           v-model="tabsData.secondName"
           type="text"
           name="second-name"
           id="second-name"
+          class="app-form__control app-form__control_margin"
           :disabled="disableAll"
         />
       </div>
     </div>
     <div class="app-form__row">
       <div class="app-form__row-block">
-        <label for="email">Email Address</label>
+        <label for="email" class="app-form__control-name">Email Address</label>
         <input
           v-model="tabsData.email"
           type="email"
           name="email"
           id="email"
+          class="app-form__control app-form__control_margin"
           :disabled="disableAll"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
-        <label for="phone">Phone Number</label>
+        <label for="phone" class="app-form__control-name">Phone Number</label>
         <input
           v-model="tabsData.phone"
           type="text"
           name="phone"
           id="phone"
+          class="app-form__control app-form__control_margin"
           :disabled="disableAll"
         />
       </div>
@@ -63,18 +66,24 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 
     <div class="app-form__row">
       <div class="app-form__row-block">
-        <label for="position">Position</label>
+        <label for="position" class="app-form__control-name">Position</label>
         <input
+          v-model="tabsData.position"
           type="text"
           name="position"
           id="position"
-          v-model="tabsData.position"
+          class="app-form__control app-form__control_margin"
           :disabled="disableAll"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
-        <label for="company-select">Available in company</label>
-        <select v-model="tabsData.company" id="company-select" :disabled="disableAll">
+        <label for="company-select" class="app-form__control-name">Available in company</label>
+        <select
+          v-model="tabsData.company"
+          id="company-select"
+          :disabled="disableAll"
+          class="app-form__control app-form__control_margin"
+        >
           <option v-for="(companyName, index) of companiesAvailable" :key="index">
             {{ companyName }}
           </option>
@@ -85,8 +94,39 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 </template>
 
 <style lang="scss" scoped>
-input[type='text'],
-input[type='email'] {
-  border: 1px solid black;
+
+.app-form {
+  display: flex;
+  flex-direction: column;
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__row-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  &__control-name{
+    color: rgba(29, 36, 82, 0.5);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+  }
+  &__control-name{
+    margin: 0 0 5px 0;
+  }
+  &__control{
+    border: 1px solid rgba(29, 36, 82, 0.1);
+    border-radius: 8px;
+    padding: 8px 9px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 10px;
+    color: #1D2452;
+  }
+  &__control_margin{
+    margin: 0 0 10px 0;
+  }
 }
 </style>

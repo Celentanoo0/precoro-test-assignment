@@ -188,7 +188,7 @@ const actionBtnText = computed(() => {
 
 <template>
   <div class="app-tabs">
-    <ul class="app-tabs__nav">
+    <ul class="app-tabs__nav app-tabs__nav_margin-bottom">
       <li v-for="(tabNavItem, index) of tabs" :key="index" class="app-tabs__nav-item">
         <button class="app-tabs__nav-button" @click="changeActiveTab(tabNavItem.tabComponentName)">
           <span class="app-tabs__nav-button-index">
@@ -204,15 +204,22 @@ const actionBtnText = computed(() => {
       <component :is="components[activeTab]" :disable-all="disableAll" />
     </div>
     <div class="app-tabs__actions-block">
-      <div class="app-tabs__toggle-switch" v-if="activeTab === 'AppMainInfoForm'">
-        <input
-          type="checkbox"
-          name="check"
-          id="check"
-          v-model="tabsData.activeInAllComp"
-          :disabled="disableAll"
-        />
-        <label for="check">Active in all companies</label>
+      <div
+        class="app-tabs__toggle-switch app-tabs__toggle-switch_margin"
+        v-if="activeTab === 'AppMainInfoForm'"
+      >
+        <label for="check" class="app-tabs__toggle-switch-item">
+          <input
+              type="checkbox"
+              name="check"
+              id="check"
+              class="input"
+              v-model="tabsData.activeInAllComp"
+              :disabled="disableAll"
+          />
+          <span class="switch"></span>
+        </label>
+        <span>Active in all companies</span>
         <img src="src/assets/info.svg" alt="info-button" />
       </div>
       <button
@@ -230,7 +237,11 @@ const actionBtnText = computed(() => {
 .app-tabs {
   &__nav {
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__nav_margin-bottom {
+    margin: 0 0 20px 0;
   }
   &__nav-button,
   &__nav-button-index,
@@ -240,8 +251,9 @@ const actionBtnText = computed(() => {
   &__nav-button {
     background: inherit;
     display: flex;
-    gap: 8px;
+    gap: 5px;
     align-items: center;
+    min-height: 100%;
   }
   &__nav-button-index {
     background: rgba(65, 90, 218, 0.05);
@@ -250,19 +262,124 @@ const actionBtnText = computed(() => {
     padding: 6px;
     border-radius: 50%;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 17px;
     color: #5e6a75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   &__nav-button-name {
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 144%;
     color: rgba(29, 36, 82, 0.5);
+    text-wrap: none;
   }
-
+  &__actions-block {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  &__toggle-switch {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 23px;
+    color: #1d2452;
+    gap: 5px;
+    img {
+      opacity: 0.4;
+    }
+  }
+  &__toggle-switch_margin {
+    margin: 0 0 10px 0;
+  }
   &__tab-submit-button {
-    background: inherit;
+    padding: 11px 16px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    background: #1d2452;
+    color: white;
+    border-radius: 20px;
   }
 }
+
+.app-tabs__toggle-switch-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+/* Visually hide the checkbox input */
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.switch {
+  --switch-container-width: 50px;
+  --switch-size: calc(var(--switch-container-width) / 2);
+  --light-gray: #e2e8f0;
+  --gray: #cbd5e0;
+  --dark-gray: #a0aec0;
+  --teal: #4fd1c5;
+  --dark-teal: #319795;
+  /* Vertically center the inner circle */
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: var(--switch-size);
+  flex-basis: var(--switch-container-width);
+  /* Make the container element rounded */
+  border-radius: var(--switch-size);
+  background-color: var(--light-gray);
+  /* In case the label gets really long, the toggle shouldn't shrink. */
+  flex-shrink: 0;
+  transition: background-color 0.25s ease-in-out;
+}
+.switch::before {
+  content: "";
+  position: absolute;
+  /* Move a little bit the inner circle to the right */
+  left: 1px;
+  height: calc(var(--switch-size) - 4px);
+  width: calc(var(--switch-size) - 4px);
+  /* Make the inner circle fully rounded */
+  border-radius: 9999px;
+  background-color: white;
+  border: 2px solid var(--light-gray);
+  transition: transform 0.375s ease-in-out;
+}
+.input:checked + .switch {
+  background-color: var(--teal);
+}
+.input:checked + .switch::before {
+  border-color: var(--teal);
+  /* Move the inner circle to the right */
+  transform: translateX(
+                  calc(var(--switch-container-width) - var(--switch-size))
+  );
+}
+.input:focus + .switch::before {
+  border-color: var(--gray);
+}
+.input:focus:checked + .switch::before {
+  border-color: var(--dark-teal);
+}
+.input:disabled + .switch {
+  background-color: var(--gray);
+}
+.input:disabled + .switch::before {
+  background-color: var(--dark-gray);
+  border-color: var(--dark-gray);
+}
+
 </style>

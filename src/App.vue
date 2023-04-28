@@ -59,12 +59,12 @@ const tabs = [
     align-items: center;
   }
   &__header_margin{
-    margin: 0 0 14px 0;
+    margin: 0 0 10px 0;
   }
   &__description{
     h1{
       font-weight: 600;
-      font-size: 24px;
+      font-size: 20px;
       line-height: 32px;
       color: #1D2452;
       margin: 0;
@@ -73,7 +73,7 @@ const tabs = [
   &__close-btn{
     button{
       background: inherit;
-      width: 26px;
+      width: 22px;
       img{
         max-width: 100%;
       }
