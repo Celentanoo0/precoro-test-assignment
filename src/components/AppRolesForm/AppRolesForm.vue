@@ -1,7 +1,15 @@
 <script setup>
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 
 const tabsData = inject('tabsData')
+
+const fullAccessGranted = computed(
+  () => tabsData.value.roles.management.find((elem) => elem.id === 'admin')?.value
+)
+
+const getDisabledAccessButtons = (accessButtonId) => {
+  return accessButtonId !== 'admin' ? fullAccessGranted.value : false
+}
 </script>
 
 <template>
@@ -19,7 +27,13 @@ const tabsData = inject('tabsData')
             :key="`role-item-id${roleKey}`"
             class="app-form__row-item-values"
           >
-            <input v-model="accessItem.values[roleKey]" type="checkbox" :name="index" :id="index" />
+            <input
+              v-model="accessItem.values[roleKey]"
+              type="checkbox"
+              :name="index"
+              :id="index"
+              :disabled="fullAccessGranted"
+            />
           </div>
         </div>
       </div>
@@ -36,6 +50,7 @@ const tabsData = inject('tabsData')
               type="checkbox"
               :name="managementItem.id"
               :id="managementItem.id"
+              :disabled="getDisabledAccessButtons(managementItem.id)"
             />
           </li>
         </ul>
