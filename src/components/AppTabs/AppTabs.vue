@@ -27,17 +27,138 @@ const tabsData = ref({
   position: '',
   company: 'Precoro',
   activeInAllComp: false,
-  // ['Precoro', 'Google', 'Microsoft']
-  mainLocation: ['Main Precoro US', 'Ukraine', 'USA'],
+  mainLocation: 'Main Precoro US',
   locations: [
-    'Berlin',
-    'Poland Office',
-    'Venice Office',
-    'Mexico',
-    'USA Office',
-    'Ukraine Kiyv Lukivska 7 Main Office',
-    'Canada'
-  ]
+    {
+      name: 'Berlin',
+      id: 'berlin',
+      value: false,
+    },
+    {
+      name: 'Poland Office',
+      id: 'poland_office',
+      value: false,
+    },
+    {
+      name: 'Venice Office',
+      id: 'venice_office',
+      value: false,
+    },
+    {
+      name: 'Mexico',
+      id: 'mexico',
+      value: false,
+    },
+    {
+      name: 'USA Office',
+      id: 'usa_office',
+      value: false,
+    },
+    {
+      name: 'Ukraine Kiyv Lukivska 7 Main Office',
+      id: 'ua_main_office',
+      value: false,
+    },
+    {
+      name: 'Canada',
+      id: 'canada',
+      value: false,
+    },
+  ],
+  roles: {
+    access: {
+      warehouse_requests: {
+        name: 'Warehouse requests',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+        },
+      },
+      purchase_requests: {
+        name: 'Purchase requests',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+        },
+      },
+      request_for_proposals: {
+        name: 'Request for proposals',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+        },
+      },
+      purchase_orders: {
+        name: 'Purchase orders',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+        },
+      },
+      receipts: {
+        name: 'Receipts',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+        },
+      },
+      invoices: {
+        name: 'Invoices',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+          pay: false,
+        },
+      },
+      expenses: {
+        name: 'Expenses',
+        values: {
+          view_only: false,
+          create: false,
+          approve: false,
+          pay: false,
+        },
+      },
+    },
+    management: [
+      {
+        name: 'Configuration',
+        id: 'configuration',
+        value: false,
+      },
+      {
+        name: 'Suppliers and items',
+        id: 'suppliers_and_items',
+        value: false,
+      },
+      {
+        name: 'Budgets',
+        id: 'budgets',
+        value: false,
+      },
+      {
+        name: 'Warehouse manager',
+        id: 'warehouse_manager',
+        value: false,
+      },
+      {
+        name: 'Reports',
+        id: 'reports',
+        value: false,
+      },
+      {
+        name: 'Admin (Full access)',
+        id: 'admin',
+        value: false,
+      },
+    ],
+  }
 })
 
 provide('tabsData', tabsData)
