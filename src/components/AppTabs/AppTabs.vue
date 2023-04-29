@@ -189,37 +189,51 @@ const actionBtnText = computed(() => {
 <template>
   <div class="app-tabs">
     <ul class="app-tabs__nav app-tabs__nav_margin-bottom">
-      <li v-for="(tabNavItem, index) of tabs" :key="index" class="app-tabs__nav-item">
+      <li
+        v-for="(tabNavItem, index) of tabs"
+        :key="index"
+        class="app-tabs__nav-item"
+        :class="{ 'tab_active-main': tabNavItem.tabComponentName === activeTab }"
+      >
         <button class="app-tabs__nav-button" @click="changeActiveTab(tabNavItem.tabComponentName)">
-          <span class="app-tabs__nav-button-index">
+          <span
+            class="app-tabs__nav-button-index"
+            :class="{ tab_active: tabNavItem.tabComponentName === activeTab }"
+          >
             {{ index + 1 }}
           </span>
-          <span class="app-tabs__nav-button-name">
+          <span
+            class="app-tabs__nav-button-name"
+            :class="{ tab_active: tabNavItem.tabComponentName === activeTab }"
+          >
             {{ tabNavItem.tabName }}
           </span>
         </button>
       </li>
     </ul>
-    <div class="app-tabs__tabs-content">
+    <div class="app-tabs__tabs-content app-tabs__tabs-content_margin">
       <component :is="components[activeTab]" :disable-all="disableAll" />
     </div>
-    <div class="app-tabs__actions-block">
+    <div
+      class="app-tabs__actions-block app-tabs__actions-block_margin"
+      :class="{ 'app-tabs__actions-block-without-switch': activeTab !== 'AppMainInfoForm' }"
+    >
       <div
         class="app-tabs__toggle-switch app-tabs__toggle-switch_margin"
         v-if="activeTab === 'AppMainInfoForm'"
       >
         <label for="check" class="app-tabs__toggle-switch-item">
           <input
-              type="checkbox"
-              name="check"
-              id="check"
-              class="input"
-              v-model="tabsData.activeInAllComp"
-              :disabled="disableAll"
+            type="checkbox"
+            name="check"
+            id="check"
+            class="input"
+            v-model="tabsData.activeInAllComp"
+            :disabled="disableAll"
           />
           <span class="switch"></span>
+          <span>Active in all companies</span>
         </label>
-        <span>Active in all companies</span>
         <img src="src/assets/info.svg" alt="info-button" />
       </div>
       <button
@@ -241,19 +255,22 @@ const actionBtnText = computed(() => {
     gap: 10px;
   }
   &__nav_margin-bottom {
-    margin: 0 0 20px 0;
+    margin: 0 0 24px 0;
   }
+
   &__nav-button,
   &__nav-button-index,
   &__nav-button-name {
     display: inline-block;
   }
+
   &__nav-button {
     background: inherit;
     display: flex;
     gap: 5px;
     align-items: center;
     min-height: 100%;
+    position: relative;
   }
   &__nav-button-index {
     background: rgba(65, 90, 218, 0.05);
@@ -272,14 +289,24 @@ const actionBtnText = computed(() => {
   &__nav-button-name {
     font-weight: 500;
     font-size: 14px;
-    line-height: 144%;
+    line-height: 23px;
     color: rgba(29, 36, 82, 0.5);
     text-wrap: none;
   }
+
+  .tab_active {
+    color: #415ada;
+  }
+
+  &__tabs-content_margin {
+    margin: 0 0 10px 0;
+  }
+
   &__actions-block {
     display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
   }
   &__toggle-switch {
     display: flex;
@@ -289,12 +316,10 @@ const actionBtnText = computed(() => {
     line-height: 23px;
     color: #1d2452;
     gap: 5px;
+    flex: 0 1 240px;
     img {
       opacity: 0.4;
     }
-  }
-  &__toggle-switch_margin {
-    margin: 0 0 10px 0;
   }
   &__tab-submit-button {
     padding: 11px 16px;
@@ -307,14 +332,21 @@ const actionBtnText = computed(() => {
   }
 }
 
+//slider checkbox
 .app-tabs__toggle-switch-item {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-/* Visually hide the checkbox input */
 .input {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 1px;
   height: 1px;
   padding: 0;
@@ -327,59 +359,97 @@ const actionBtnText = computed(() => {
 .switch {
   --switch-container-width: 50px;
   --switch-size: calc(var(--switch-container-width) / 2);
-  --light-gray: #e2e8f0;
-  --gray: #cbd5e0;
-  --dark-gray: #a0aec0;
-  --teal: #4fd1c5;
-  --dark-teal: #319795;
-  /* Vertically center the inner circle */
   display: flex;
   align-items: center;
   position: relative;
   height: var(--switch-size);
   flex-basis: var(--switch-container-width);
-  /* Make the container element rounded */
   border-radius: var(--switch-size);
-  background-color: var(--light-gray);
-  /* In case the label gets really long, the toggle shouldn't shrink. */
+  background-color: #e2e8f0;
   flex-shrink: 0;
   transition: background-color 0.25s ease-in-out;
 }
 .switch::before {
-  content: "";
+  content: '';
   position: absolute;
-  /* Move a little bit the inner circle to the right */
   left: 1px;
   height: calc(var(--switch-size) - 4px);
   width: calc(var(--switch-size) - 4px);
-  /* Make the inner circle fully rounded */
   border-radius: 9999px;
   background-color: white;
-  border: 2px solid var(--light-gray);
   transition: transform 0.375s ease-in-out;
 }
 .input:checked + .switch {
-  background-color: var(--teal);
+  background-color: #415ada;
 }
 .input:checked + .switch::before {
-  border-color: var(--teal);
-  /* Move the inner circle to the right */
-  transform: translateX(
-                  calc(var(--switch-container-width) - var(--switch-size))
-  );
+  border-color: #7a89d0;
+  transform: translateX(calc(var(--switch-container-width) - var(--switch-size)));
 }
 .input:focus + .switch::before {
-  border-color: var(--gray);
-}
-.input:focus:checked + .switch::before {
-  border-color: var(--dark-teal);
+  border-color: #cbd5e0;
 }
 .input:disabled + .switch {
-  background-color: var(--gray);
+  background-color: #cbd5e0;
 }
 .input:disabled + .switch::before {
-  background-color: var(--dark-gray);
-  border-color: var(--dark-gray);
+  background-color: #a0aec0;
+  border-color: #a0aec0;
 }
 
+@media (min-width: 767px) {
+  .app-tabs {
+    &__nav {
+      flex-direction: row;
+      gap: 24px;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 16px;
+    }
+    &__nav_margin-bottom {
+      margin: 0 0 24px 0;
+    }
+
+    &__nav-button {
+      gap: 8px;
+    }
+    &__nav-button-name {
+      font-size: 16px;
+    }
+    &__nav-button-index {
+      font-size: 14px;
+    }
+
+    &__tabs-content_margin {
+      margin: 0 0 33px 0;
+    }
+
+    &__actions-block {
+      position: relative;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: auto;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 20px 0 0 0;
+    }
+    &__actions-block-without-switch {
+      justify-content: flex-end;
+    }
+  }
+
+  .tab_active-main {
+    position: relative;
+  }
+  .tab_active-main::after {
+    content: '';
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 2px;
+    background: #415ada;
+    top: calc(100% + 15px);
+    left: 0;
+  }
+}
 </style>

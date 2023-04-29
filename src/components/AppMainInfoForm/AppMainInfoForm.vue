@@ -94,39 +94,62 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 </template>
 
 <style lang="scss" scoped>
-
 .app-form {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   &__row {
     display: flex;
     flex-wrap: wrap;
   }
+
   &__row-block {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
-  &__control-name{
+
+  &__control-name {
     color: rgba(29, 36, 82, 0.5);
     font-weight: 600;
     font-size: 12px;
     line-height: 15px;
   }
-  &__control-name{
+  &__control-name {
     margin: 0 0 5px 0;
   }
-  &__control{
+  &__control {
     border: 1px solid rgba(29, 36, 82, 0.1);
     border-radius: 8px;
     padding: 8px 9px;
     font-weight: 500;
     font-size: 14px;
     line-height: 10px;
-    color: #1D2452;
+    color: #1d2452;
   }
-  &__control_margin{
+  &__control_margin {
     margin: 0 0 10px 0;
+  }
+}
+
+@media (min-width: 767px) {
+  .app-form {
+    &__row {
+      flex-wrap: nowrap;
+      gap: 20px;
+      width: 80%;
+    }
+    &__row:last-child {
+      .app-form__row-block {
+        .app-form__control {
+          margin: 0;
+        }
+      }
+    }
+
+    &__row-block {
+      flex: 0 1 50%;
+    }
   }
 }
 </style>
