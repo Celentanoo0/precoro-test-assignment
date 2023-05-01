@@ -1,8 +1,8 @@
 <script setup>
-import AppTabs from '@/components/AppTabs/AppTabs.vue'
-import { provide, ref } from "vue";
+import AppTabs from '@/components/AppTabs/AppTabs.vue';
+import { provide, reactive, ref } from 'vue';
 
-const tabs = ref([
+const tabs = reactive([
   {
     tabName: 'Main Info',
     tabComponentName: 'AppMainInfoForm',
@@ -22,10 +22,10 @@ const tabs = ref([
 const popupIsOpen = ref(true);
 const closePopup = () => {
   popupIsOpen.value = false;
-}
+};
 const openPopup = () => {
   popupIsOpen.value = true;
-}
+};
 
 provide('tabs', tabs);
 </script>
@@ -62,7 +62,7 @@ provide('tabs', tabs);
   background: lightgray;
 }
 
-.app-popup-open-button{
+.app-popup-open-button {
   padding: 10px 20px;
   border-radius: 8px;
   background: white;
@@ -76,28 +76,28 @@ provide('tabs', tabs);
   padding: 24px;
   flex: 0 1 80%;
 
-  &__header{
+  &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  &__header_margin{
+  &__header_margin {
     margin: 0 0 10px 0;
   }
-  &__description{
-    h1{
+  &__description {
+    h1 {
       font-weight: 600;
       font-size: 20px;
       line-height: 32px;
-      color: #1D2452;
+      color: #1d2452;
       margin: 0;
     }
   }
-  &__close-btn{
-    button{
+  &__close-btn {
+    button {
       background: inherit;
       width: 22px;
-      img{
+      img {
         max-width: 100%;
       }
     }

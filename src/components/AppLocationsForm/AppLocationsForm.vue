@@ -1,6 +1,7 @@
 <script setup>
 import { inject, ref, toRefs } from 'vue'
-import {formControlChanged} from "@/composables/formControlChanged";
+import { formControlChanged } from '@/composables/formControlChanged'
+import { mainLocations } from '@/components/AppLocationsForm/constants'
 
 const props = defineProps({
   disableAll: {
@@ -9,20 +10,24 @@ const props = defineProps({
     default: false
   }
 })
-const tabs = inject('tabs');
-const activeTab = inject('activeTab');
 const { disableAll } = toRefs(props)
-const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
+const tabs = inject('tabs')
+const activeTab = inject('activeTab')
+// dddddd
+// const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
 const tabsData = inject('tabsData')
-const selectAllLocationCheckboxes = ref(false);
+const selectAllLocationCheckboxes = ref(false)
 const onLocationsChange = () => {
-  formControlChanged(tabs.value, activeTab.value);
-  selectAllLocationCheckboxes.value = false;
+  // formControlChanged(tabs.value, activeTab.value);
+  formControlChanged(tabs, activeTab.value)
+  selectAllLocationCheckboxes.value = false
 }
 const selectAllLocations = (event) => {
   // ddddddd
   // formControlChanged(activeTab);
-  formControlChanged(tabs.value, activeTab.value);
+  //ddddddd
+  // formControlChanged(tabs.value, activeTab.value);
+  formControlChanged(tabs, activeTab.value)
   if (event.target.checked) {
     // dddddddd
     // for (const elem of tabsData.value.locations) {

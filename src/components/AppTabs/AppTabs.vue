@@ -316,29 +316,33 @@ const tabsData = reactive({
     ]
   }
 })
-const disableAll = ref(false)
 
 provide('tabsData', tabsData)
-const tabs = inject('tabs')
 
-const activeTab = ref(tabs.value?.[0].tabComponentName)
+const disableAll = ref(false)
+const tabs = inject('tabs')
+// const activeTab = ref(tabs.value?.[0].tabComponentName)
+const activeTab = ref(tabs[0]?.tabComponentName)
+
 provide('activeTab', activeTab)
 
 const changeActiveTab = (newActiveTabName) => {
   activeTab.value = newActiveTabName
 }
-const checkValidation = () => {}
 const nextTab = () => {
   // dddddd
   // Mojno proveryat vse li polya zapolneni i obernut v uslovie to chto nije
-  tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
+  // tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
+  tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
   activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
   // dddddddd
   // проверять если все заполненно и отвалидированно, то менять в родительском компоненте
   // tabs[index].submitted = true
 }
 
-const allTabsSubmitted = computed(() => tabs.value.slice(0, -1).every((item) => item.submitted))
+//ddddd
+// const allTabsSubmitted = computed(() => tabs.value.slice(0, -1).every((item) => item.submitted))
+const allTabsSubmitted = computed(() => tabs.slice(0, -1).every((item) => item.submitted))
 const submitPopup = () => {
   if (!allTabsSubmitted.value) {
     console.log(
@@ -347,14 +351,14 @@ const submitPopup = () => {
     return
   }
   if (!disableAll.value) {
-    checkValidation()
     disableAll.value = true
-    tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
+    // dddd
+    // tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
+    tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
     const tabsDataToSend = unref(tabsData)
     console.log(tabsDataToSend)
   }
 }
-
 const lastTabIsReached = computed(
   () => Object.keys(components).indexOf(activeTab.value) < Object.keys(components).length - 1
 )
@@ -374,7 +378,7 @@ const actionBtnText = computed(() => {
           {
             // dddddddd
             // Izmenit na modificator app-tabs__nav-item--main
-            'tab_active-main': tabNavItem.tabComponentName === activeTab,
+            'app-tabs__nav-item--main': tabNavItem.tabComponentName === activeTab,
             'app-tabs__nav-item--submitted': tabNavItem.submitted
           }
         ]"
@@ -637,10 +641,10 @@ const actionBtnText = computed(() => {
     }
   }
 
-  .tab_active-main {
+  .app-tabs__nav-item--main {
     position: relative;
   }
-  .tab_active-main::after {
+  .app-tabs__nav-item--main::after {
     content: '';
     position: absolute;
     z-index: 999;

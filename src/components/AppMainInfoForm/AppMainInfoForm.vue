@@ -1,6 +1,7 @@
 <script setup>
 import { inject, toRefs } from 'vue'
 import {formControlChanged} from "@/composables/formControlChanged";
+import {companiesAvailable} from "@/components/AppMainInfoForm/constants";
 
 const props = defineProps({
   disableAll: {
@@ -13,7 +14,8 @@ const { disableAll } = toRefs(props)
 const tabs = inject('tabs');
 const activeTab = inject('activeTab');
 const tabsData = inject('tabsData')
-const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
+// dddd
+// const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 </script>
 
 <template>

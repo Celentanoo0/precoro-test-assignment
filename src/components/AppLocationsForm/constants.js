@@ -1,0 +1,1 @@
+export const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
