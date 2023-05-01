@@ -160,8 +160,7 @@ const tabsData = reactive({
 })
 
 provide('tabsData', tabsData);
-
-const disableAll = ref(false);
+const disableAll = inject('disableAll');
 const tabs = inject('tabs');
 const activeTab = ref(tabs[0]?.tabComponentName);
 
