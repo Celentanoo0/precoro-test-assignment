@@ -1,51 +1,51 @@
 <script setup>
-import { computed, inject, ref, toRefs } from 'vue'
+import { computed, inject, ref, toRefs } from 'vue';
 
 const props = defineProps({
   disableAll: {
     type: Boolean,
     required: false,
-    default: false
-  }
-})
-const { disableAll } = toRefs(props)
-const tabsData = inject('tabsData')
+    default: false,
+  },
+});
+const { disableAll } = toRefs(props);
+const tabsData = inject('tabsData');
 const accessLevels = ref([
   {
     name: 'View only',
     keyName: 'view_only',
-    value: false,
+    value: false
   },
   {
     name: 'Create',
     keyName: 'create',
-    value: false,
+    value: false
   },
   {
     name: 'Approve',
     keyName: 'approve',
-    value: false,
+    value: false
   },
   {
     name: 'Pay',
     keyName: 'pay',
-    value: false,
+    value: false
   },
 ]);
 const managementSelectAll = ref(false);
 const fullAccessGranted = computed(
   () => tabsData.roles.management.find((elem) => elem.id === 'admin')?.value
-)
+);
 const getDisabledAccessButtons = (accessButtonId) => {
-  return accessButtonId !== 'admin' ? fullAccessGranted.value : false
-}
+  return accessButtonId !== 'admin' ? fullAccessGranted.value : false;
+};
 const selectAllAccessCheckboxes = (accessLevelKeyName, accessLevelValue) => {
   tabsData.roles.access.forEach((accessArea) => {
     if (typeof accessArea.values[accessLevelKeyName] === 'boolean') {
       accessArea.values[accessLevelKeyName] = accessLevelValue;
     }
   });
-}
+};
 const selectAllManagementCheckboxes = (event) => {
   const managementValue = event.target.checked;
 
@@ -57,13 +57,10 @@ const selectAllManagementCheckboxes = (event) => {
 }
 const onAccessAreaLevelChange = (accessLevel) => {
   accessLevels.value.find((level) => level.keyName === accessLevel).value = false;
-}
+};
 const onManagementChange = () => {
   managementSelectAll.value = false;
-  //ddddddddd
-  // На change любого форм контрола инпут селект и тд сбрасыать tabs[index].submitted = false,
-  // по tabs[index].submitted ориентироваться как отображать таб на странице
-}
+};
 </script>
 
 <template>
@@ -92,7 +89,9 @@ const onManagementChange = () => {
               type="checkbox"
               :name="levelData"
               :id="levelData"
-              @change="(event) => selectAllAccessCheckboxes(levelData.keyName, event.target.checked)"
+              @change="
+                (event) => selectAllAccessCheckboxes(levelData.keyName, event.target.checked)
+              "
               :disabled="fullAccessGranted || disableAll"
             />
           </div>
@@ -121,7 +120,9 @@ const onManagementChange = () => {
         </div>
       </div>
       <div class="app-form__row-block--one-row app-form__row-block--flex">
-        <div class="app-form__row-item--management">Management: <img src="src/assets/info.svg" alt="info-img"></div>
+        <div class="app-form__row-item--management">
+          Management: <img src="src/assets/info.svg" alt="info-img" />
+        </div>
         <ul class="app-form__list">
           <li class="app-form__list-item app-form__list-item-all">
             <input
@@ -131,9 +132,7 @@ const onManagementChange = () => {
               :disabled="fullAccessGranted || disableAll"
               @change="selectAllManagementCheckboxes"
             />
-            <label for="management-select-all">
-              All bellow
-            </label>
+            <label for="management-select-all"> All bellow </label>
           </li>
           <li
             class="app-form__list-item"
@@ -167,8 +166,8 @@ const onManagementChange = () => {
 </template>
 
 <style lang="scss" scoped>
-.app-form__row{
-  .app-form__row-block--description{
+.app-form__row {
+  .app-form__row-block--description {
     display: flex;
     font-size: 12px;
     gap: 10px;
@@ -178,29 +177,29 @@ const onManagementChange = () => {
     font-weight: 500;
     line-height: 18px;
     color: rgba(29, 36, 82, 0.5);
-    a{
+    a {
       text-decoration: underline;
     }
-    img{
+    img {
       max-width: 20px;
     }
   }
 }
 
-.app-form__row-item--management{
+.app-form__row-item--management {
   display: flex;
   width: 100%;
   align-items: center;
   font-weight: 600;
   font-size: 12px;
   line-height: 24px;
-  color: #676F8F;
+  color: #676f8f;
   gap: 7px;
-  img{
+  img {
     max-width: 20px;
   }
 }
-.app-form__list{
+.app-form__list {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -209,16 +208,16 @@ const onManagementChange = () => {
   line-height: 23px;
   gap: 6px;
 }
-.app-form__list-item{
+.app-form__list-item {
   display: flex;
   gap: 10px;
-  color: #676F8F
+  color: #676f8f;
 }
-.app-form__list-item-all{
+.app-form__list-item-all {
   font-weight: 600;
 }
 
-.app-form__row-block--one-row{
+.app-form__row-block--one-row {
   padding: 10px;
 }
 
@@ -230,11 +229,11 @@ const onManagementChange = () => {
   max-width: 100%;
 }
 
-.app-form__row--flex--margin{
+.app-form__row--flex--margin {
   margin-bottom: 32px;
 }
 
-.app-form__row-block--first-block{
+.app-form__row-block--first-block {
   text-align: center;
   padding: 10px;
 }
@@ -293,24 +292,24 @@ const onManagementChange = () => {
 }
 
 @media (min-width: 767px) {
-  .app-form__row--flex{
+  .app-form__row--flex {
     flex-direction: row;
   }
   .app-form__row-block--flex:first-child {
-    border-right: 1px solid #DDDEE5;
+    border-right: 1px solid #dddee5;
     font-weight: 600;
     font-size: 12px;
     line-height: 24px;
-    color: #676F8F;
+    color: #676f8f;
     text-align: right;
   }
 
-  .app-form__row-item-values{
+  .app-form__row-item-values {
     height: 100%;
   }
 
-  .app-form__row{
-    .app-form__row-block--description{
+  .app-form__row {
+    .app-form__row-block--description {
       font-size: 14px;
       line-height: 18px;
       max-width: 80%;

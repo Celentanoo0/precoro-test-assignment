@@ -1,52 +1,36 @@
 <script setup>
-import { inject, ref, toRefs } from 'vue'
-import { formControlChanged } from '@/composables/formControlChanged'
-import { mainLocations } from '@/components/AppLocationsForm/constants'
+import { inject, ref, toRefs } from 'vue';
+import { formControlChanged } from '@/composables/formControlChanged';
+import { mainLocations } from '@/components/AppLocationsForm/constants';
 
 const props = defineProps({
   disableAll: {
     type: Boolean,
     required: false,
-    default: false
-  }
-})
-const { disableAll } = toRefs(props)
-const tabs = inject('tabs')
-const activeTab = inject('activeTab')
-// dddddd
-// const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
-const tabsData = inject('tabsData')
-const selectAllLocationCheckboxes = ref(false)
+    default: false,
+  },
+});
+const { disableAll } = toRefs(props);
+const tabs = inject('tabs');
+const activeTab = inject('activeTab');
+const tabsData = inject('tabsData');
+const selectAllLocationCheckboxes = ref(false);
 const onLocationsChange = () => {
-  // formControlChanged(tabs.value, activeTab.value);
   formControlChanged(tabs, activeTab.value)
   selectAllLocationCheckboxes.value = false
-}
+};
 const selectAllLocations = (event) => {
-  // ddddddd
-  // formControlChanged(activeTab);
-  //ddddddd
-  // formControlChanged(tabs.value, activeTab.value);
-  formControlChanged(tabs, activeTab.value)
+  formControlChanged(tabs, activeTab.value);
   if (event.target.checked) {
-    // dddddddd
-    // for (const elem of tabsData.value.locations) {
-    //   elem.value = true
-    // }
     for (const elem of tabsData.locations) {
-      elem.value = true
+      elem.value = true;
     }
-
-    return
+    return;
   }
   for (const elem of tabsData.locations) {
-    elem.value = false
+    elem.value = false;
   }
-}
-// Sdelat composable
-// const formControlChanged = (activeTabName) => tabs.value.find(
-//   (tabItem) => tabItem.tabComponentName === activeTabName,
-// ).submitted = false;
+};
 </script>
 
 <template>
@@ -75,11 +59,11 @@ const selectAllLocations = (event) => {
     <div class="app-form__row">
       <div class="app-form__row-item">
         <input
+          v-model="selectAllLocationCheckboxes"
           type="checkbox"
           name="select-all"
           id="select-all"
           class="app-form__checkbox"
-          v-model="selectAllLocationCheckboxes"
           :disabled="disableAll"
           @change="selectAllLocations"
         />
@@ -91,8 +75,8 @@ const selectAllLocations = (event) => {
       <div class="app-form__row-item">
         <ul class="app-form__list app-form__list--two-col">
           <li
-            class="app-form__list-item app-form__list-item_margin"
             v-for="(location, index) of tabsData.locations"
+            class="app-form__list-item app-form__list-item_margin"
             :key="`location_id${index}`"
           >
             <input

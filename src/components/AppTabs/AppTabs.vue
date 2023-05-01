@@ -1,173 +1,15 @@
 <script setup>
-import { computed, inject, provide, reactive, ref, unref } from 'vue'
-import AppRolesForm from '@/components/AppRolesForm/AppRolesForm.vue'
-import AppMainInfoForm from '@/components/AppMainInfoForm/AppMainInfoForm.vue'
-import AppLocationsForm from '@/components/AppLocationsForm/AppLocationsForm.vue'
-import { formControlChanged } from '@/composables/formControlChanged'
+import { computed, inject, provide, reactive, ref, unref } from 'vue';
+import AppRolesForm from '@/components/AppRolesForm/AppRolesForm.vue';
+import AppMainInfoForm from '@/components/AppMainInfoForm/AppMainInfoForm.vue';
+import AppLocationsForm from '@/components/AppLocationsForm/AppLocationsForm.vue';
+import { formControlChanged } from '@/composables/formControlChanged';
 
 const components = {
   AppMainInfoForm,
   AppLocationsForm,
-  AppRolesForm
-}
-// const props = defineProps({
-//   tabs: {
-//     type: Array,
-//     required: true,
-//     default: () => []
-//   }
-// })
-// ddddddddd
-// const { tabs } = toRefs(props)
-// dddddddddd
-// const tabsData = ref({
-//   firstName: '',
-//   secondName: '',
-//   email: '',
-//   phone: '',
-//   position: '',
-//   company: 'Precoro',
-//   activeInAllComp: false,
-//   mainLocation: 'Main Precoro US',
-//   locations: [
-//     {
-//       name: 'Berlin',
-//       id: 'berlin',
-//       value: false
-//     },
-//     {
-//       name: 'Poland Office',
-//       id: 'poland_office',
-//       value: false
-//     },
-//     {
-//       name: 'Venice Office',
-//       id: 'venice_office',
-//       value: false
-//     },
-//     {
-//       name: 'Mexico',
-//       id: 'mexico',
-//       value: false
-//     },
-//     {
-//       name: 'USA Office',
-//       id: 'usa_office',
-//       value: false
-//     },
-//     {
-//       name: 'Ukraine Kiyv Lukivska 7 Main Office',
-//       id: 'ua_main_office',
-//       value: false
-//     },
-//     {
-//       name: 'Canada',
-//       id: 'canada',
-//       value: false
-//     }
-//   ],
-//   roles: {
-//     access: [
-//       {
-//         id: 'warehouse_requests',
-//         name: 'Warehouse requests',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false
-//         }
-//       },
-//       {
-//         id: 'purchase_requests',
-//         name: 'Purchase requests',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false
-//         }
-//       },
-//       {
-//         id: 'purchase_requests',
-//         name: 'Request for proposals',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false
-//         }
-//       },
-//       {
-//         id: 'purchase_orders',
-//         name: 'Purchase orders',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false
-//         }
-//       },
-//       {
-//         id: 'receipts',
-//         name: 'Receipts',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false
-//         }
-//       },
-//       {
-//         id: 'invoices',
-//         name: 'Invoices',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false,
-//           pay: false
-//         }
-//       },
-//       {
-//         id: 'expenses',
-//         name: 'Expenses',
-//         values: {
-//           view_only: false,
-//           create: false,
-//           approve: false,
-//           pay: false
-//         }
-//       }
-//     ],
-//     management: [
-//       {
-//         name: 'Configuration',
-//         id: 'configuration',
-//         value: false
-//       },
-//       {
-//         name: 'Suppliers and items',
-//         id: 'suppliers_and_items',
-//         value: false
-//       },
-//       {
-//         name: 'Budgets',
-//         id: 'budgets',
-//         value: false
-//       },
-//       {
-//         name: 'Warehouse manager',
-//         id: 'warehouse_manager',
-//         value: false
-//       },
-//       {
-//         name: 'Reports',
-//         id: 'reports',
-//         value: false
-//       },
-//       {
-//         name: 'Admin (Full access)',
-//         id: 'admin',
-//         value: false
-//       }
-//     ]
-//   }
-// })
+  AppRolesForm,
+};
 const tabsData = reactive({
   firstName: '',
   secondName: '',
@@ -181,38 +23,38 @@ const tabsData = reactive({
     {
       name: 'Berlin',
       id: 'berlin',
-      value: false
+      value: false,
     },
     {
       name: 'Poland Office',
       id: 'poland_office',
-      value: false
+      value: false,
     },
     {
       name: 'Venice Office',
       id: 'venice_office',
-      value: false
+      value: false,
     },
     {
       name: 'Mexico',
       id: 'mexico',
-      value: false
+      value: false,
     },
     {
       name: 'USA Office',
       id: 'usa_office',
-      value: false
+      value: false,
     },
     {
       name: 'Ukraine Kiyv Lukivska 7 Main Office',
       id: 'ua_main_office',
-      value: false
+      value: false,
     },
     {
       name: 'Canada',
       id: 'canada',
-      value: false
-    }
+      value: false,
+    },
   ],
   roles: {
     access: [
@@ -222,8 +64,8 @@ const tabsData = reactive({
         values: {
           view_only: false,
           create: false,
-          approve: false
-        }
+          approve: false,
+        },
       },
       {
         id: 'purchase_requests',
@@ -231,8 +73,8 @@ const tabsData = reactive({
         values: {
           view_only: false,
           create: false,
-          approve: false
-        }
+          approve: false,
+        },
       },
       {
         id: 'purchase_requests',
@@ -240,8 +82,8 @@ const tabsData = reactive({
         values: {
           view_only: false,
           create: false,
-          approve: false
-        }
+          approve: false,
+        },
       },
       {
         id: 'purchase_orders',
@@ -249,8 +91,8 @@ const tabsData = reactive({
         values: {
           view_only: false,
           create: false,
-          approve: false
-        }
+          approve: false,
+        },
       },
       {
         id: 'receipts',
@@ -258,8 +100,8 @@ const tabsData = reactive({
         values: {
           view_only: false,
           create: false,
-          approve: false
-        }
+          approve: false,
+        },
       },
       {
         id: 'invoices',
@@ -268,8 +110,8 @@ const tabsData = reactive({
           view_only: false,
           create: false,
           approve: false,
-          pay: false
-        }
+          pay: false,
+        },
       },
       {
         id: 'expenses',
@@ -278,93 +120,81 @@ const tabsData = reactive({
           view_only: false,
           create: false,
           approve: false,
-          pay: false
-        }
-      }
+          pay: false,
+        },
+      },
     ],
     management: [
       {
         name: 'Configuration',
         id: 'configuration',
-        value: false
+        value: false,
       },
       {
         name: 'Suppliers and items',
         id: 'suppliers_and_items',
-        value: false
+        value: false,
       },
       {
         name: 'Budgets',
         id: 'budgets',
-        value: false
+        value: false,
       },
       {
         name: 'Warehouse manager',
         id: 'warehouse_manager',
-        value: false
+        value: false,
       },
       {
         name: 'Reports',
         id: 'reports',
-        value: false
+        value: false,
       },
       {
         name: 'Admin (Full access)',
         id: 'admin',
-        value: false
-      }
+        value: false,
+      },
     ]
   }
 })
 
-provide('tabsData', tabsData)
+provide('tabsData', tabsData);
 
-const disableAll = ref(false)
-const tabs = inject('tabs')
-// const activeTab = ref(tabs.value?.[0].tabComponentName)
-const activeTab = ref(tabs[0]?.tabComponentName)
+const disableAll = ref(false);
+const tabs = inject('tabs');
+const activeTab = ref(tabs[0]?.tabComponentName);
 
-provide('activeTab', activeTab)
+provide('activeTab', activeTab);
 
 const changeActiveTab = (newActiveTabName) => {
-  activeTab.value = newActiveTabName
+  activeTab.value = newActiveTabName;
 }
 const nextTab = () => {
-  // dddddd
-  // Mojno proveryat vse li polya zapolneni i obernut v uslovie to chto nije
-  // tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
-  tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
-  activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
-  // dddddddd
-  // проверять если все заполненно и отвалидированно, то менять в родительском компоненте
-  // tabs[index].submitted = true
+  tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true;
+  activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1];
 }
-
-//ddddd
-// const allTabsSubmitted = computed(() => tabs.value.slice(0, -1).every((item) => item.submitted))
-const allTabsSubmitted = computed(() => tabs.slice(0, -1).every((item) => item.submitted))
+const allTabsSubmitted = computed(() => tabs.slice(0, -1).every((item) => item.submitted));
 const submitPopup = () => {
   if (!allTabsSubmitted.value) {
     console.log(
       'Please, use "Next Step" buttons to submit tabs. You will not be able to send data without submitting all tabs'
-    )
-    return
+    );
+    return;
   }
   if (!disableAll.value) {
-    disableAll.value = true
-    // dddd
-    // tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
-    tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
-    const tabsDataToSend = unref(tabsData)
-    console.log(tabsDataToSend)
+    disableAll.value = true;
+    tabs.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true;
+    const tabsDataToSend = unref(tabsData);
+    console.log(tabsDataToSend);
   }
-}
+};
 const lastTabIsReached = computed(
   () => Object.keys(components).indexOf(activeTab.value) < Object.keys(components).length - 1
-)
+);
 const actionBtnText = computed(() => {
   return lastTabIsReached.value ? 'Next Step' : 'Invite User'
-})
+});
 </script>
 
 <template>
@@ -376,8 +206,6 @@ const actionBtnText = computed(() => {
         :class="[
           'app-tabs__nav-item',
           {
-            // dddddddd
-            // Izmenit na modificator app-tabs__nav-item--main
             'app-tabs__nav-item--main': tabNavItem.tabComponentName === activeTab,
             'app-tabs__nav-item--submitted': tabNavItem.submitted
           }
@@ -386,8 +214,12 @@ const actionBtnText = computed(() => {
         <button class="app-tabs__nav-button" @click="changeActiveTab(tabNavItem.tabComponentName)">
           <span
             v-if="!tabNavItem.submitted"
-            class="app-tabs__nav-button-index"
-            :class="{ tab_active: tabNavItem.tabComponentName === activeTab }"
+            :class="[
+                'app-tabs__nav-button-index',
+                {
+                  'tab_active': tabNavItem.tabComponentName === activeTab
+                }
+            ]"
           >
             {{ index + 1 }}
           </span>
@@ -415,16 +247,16 @@ const actionBtnText = computed(() => {
       :class="{ 'app-tabs__actions-block-without-switch': activeTab !== 'AppMainInfoForm' }"
     >
       <div
-        class="app-tabs__toggle-switch app-tabs__toggle-switch_margin"
         v-if="activeTab === 'AppMainInfoForm'"
+        class="app-tabs__toggle-switch app-tabs__toggle-switch_margin"
       >
         <label for="check" class="app-tabs__toggle-switch-item">
           <input
+            v-model="tabsData.activeInAllComp"
             type="checkbox"
             name="check"
             id="check"
             class="input"
-            v-model="tabsData.activeInAllComp"
             :disabled="disableAll"
             @change="formControlChanged(tabs, activeTab)"
           />

@@ -33,7 +33,7 @@ provide('tabs', tabs);
 <template>
   <div class="app-wrapper">
     <div v-if="!popupIsOpen" class="app-open-popup">
-      <button @click="openPopup" class="app-popup-open-button">Open popup</button>
+      <button class="app-popup-open-button" @click="openPopup">Open popup</button>
     </div>
     <div v-else class="app-popup">
       <div class="app-popup__header app-popup__header_margin">

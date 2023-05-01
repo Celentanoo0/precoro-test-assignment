@@ -1,21 +1,19 @@
 <script setup>
-import { inject, toRefs } from 'vue'
-import {formControlChanged} from "@/composables/formControlChanged";
-import {companiesAvailable} from "@/components/AppMainInfoForm/constants";
+import { inject, toRefs } from 'vue';
+import { formControlChanged } from '@/composables/formControlChanged';
+import { companiesAvailable } from '@/components/AppMainInfoForm/constants';
 
 const props = defineProps({
   disableAll: {
     type: Boolean,
     required: false,
-    default: false
-  }
-})
-const { disableAll } = toRefs(props)
+    default: false,
+  },
+});
+const { disableAll } = toRefs(props);
 const tabs = inject('tabs');
 const activeTab = inject('activeTab');
-const tabsData = inject('tabsData')
-// dddd
-// const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
+const tabsData = inject('tabsData');
 </script>
 
 <template>
