@@ -1,0 +1,1 @@
+export const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
