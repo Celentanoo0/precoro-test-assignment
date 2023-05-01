@@ -19,19 +19,29 @@ const tabs = ref([
     submitted: false,
   }
 ]);
+const popupIsOpen = ref(true);
+const closePopup = () => {
+  popupIsOpen.value = false;
+}
+const openPopup = () => {
+  popupIsOpen.value = true;
+}
 
 provide('tabs', tabs);
 </script>
 
 <template>
   <div class="app-wrapper">
-    <div class="app-popup">
+    <div v-if="!popupIsOpen" class="app-open-popup">
+      <button @click="openPopup" class="app-popup-open-button">Open popup</button>
+    </div>
+    <div v-else class="app-popup">
       <div class="app-popup__header app-popup__header_margin">
         <div class="app-popup__description">
           <h1>Invite User</h1>
         </div>
         <div class="app-popup__close-btn">
-          <button>
+          <button @click="closePopup">
             <img src="./assets/close-button.svg" alt="close-btn" />
           </button>
         </div>
@@ -50,6 +60,13 @@ provide('tabs', tabs);
   justify-content: center;
   min-height: 100vh;
   background: lightgray;
+}
+
+.app-popup-open-button{
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 0 10px 0 white;
 }
 
 .app-popup {

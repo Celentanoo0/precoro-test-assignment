@@ -1,9 +1,9 @@
 <script setup>
-import {computed, inject, provide, reactive, ref, unref} from 'vue'
+import { computed, inject, provide, reactive, ref, unref } from 'vue'
 import AppRolesForm from '@/components/AppRolesForm/AppRolesForm.vue'
 import AppMainInfoForm from '@/components/AppMainInfoForm/AppMainInfoForm.vue'
 import AppLocationsForm from '@/components/AppLocationsForm/AppLocationsForm.vue'
-import {formControlChanged} from "@/composables/formControlChanged";
+import { formControlChanged } from '@/composables/formControlChanged'
 
 const components = {
   AppMainInfoForm,
@@ -337,8 +337,16 @@ const nextTab = () => {
   // проверять если все заполненно и отвалидированно, то менять в родительском компоненте
   // tabs[index].submitted = true
 }
+
+const allTabsSubmitted = computed(() => tabs.value.slice(0, -1).every((item) => item.submitted))
 const submitPopup = () => {
-  if(!disableAll.value){
+  if (!allTabsSubmitted.value) {
+    console.log(
+      'Please, use "Next Step" buttons to submit tabs. You will not be able to send data without submitting all tabs'
+    )
+    return
+  }
+  if (!disableAll.value) {
     checkValidation()
     disableAll.value = true
     tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true
