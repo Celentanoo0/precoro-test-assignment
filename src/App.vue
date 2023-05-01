@@ -1,7 +1,8 @@
 <script setup>
 import AppTabs from '@/components/AppTabs/AppTabs.vue'
+import { provide, ref } from "vue";
 
-const tabs = [
+const tabs = ref([
   {
     tabName: 'Main Info',
     tabComponentName: 'AppMainInfoForm',
@@ -17,7 +18,9 @@ const tabs = [
     tabComponentName: 'AppRolesForm',
     submitted: false,
   }
-]
+]);
+
+provide('tabs', tabs);
 </script>
 
 <template>

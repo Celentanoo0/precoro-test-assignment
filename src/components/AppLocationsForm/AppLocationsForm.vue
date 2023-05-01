@@ -1,5 +1,5 @@
 <script setup>
-import {inject, ref, toRefs} from 'vue'
+import { inject, ref, toRefs } from 'vue'
 
 const props = defineProps({
   disableAll: {
@@ -8,24 +8,33 @@ const props = defineProps({
     default: false
   }
 })
+const tabs = inject('tabs');
+const activeTab = inject('activeTab');
 const { disableAll } = toRefs(props)
 const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
 const tabsData = inject('tabsData')
 const selectAllLocationCheckboxes = ref(false);
 const onLocationsChange = () => {
+  formControlChanged(activeTab);
   selectAllLocationCheckboxes.value = false;
 }
 const selectAllLocations = (event) => {
+  formControlChanged(activeTab);
   if (event.target.checked) {
     for (const elem of tabsData.value.locations) {
       elem.value = true
     }
+
     return
   }
   for (const elem of tabsData.value.locations) {
     elem.value = false
   }
 }
+// Sdelat composable
+const formControlChanged = (activeTabName) => tabs.value.find(
+  (tabItem) => tabItem.tabComponentName === activeTabName,
+).submitted = false;
 </script>
 
 <template>
@@ -39,6 +48,7 @@ const selectAllLocations = (event) => {
           id="main-location"
           class="app-form__select-item"
           :disabled="disableAll"
+          @change="formControlChanged(activeTab)"
         >
           <option
             v-for="(mainLocation, index) of mainLocations"
@@ -58,8 +68,8 @@ const selectAllLocations = (event) => {
           id="select-all"
           class="app-form__checkbox"
           v-model="selectAllLocationCheckboxes"
-          @change="selectAllLocations"
           :disabled="disableAll"
+          @change="selectAllLocations"
         />
         <label for="select-all">Select All Locations</label>
       </div>
@@ -77,10 +87,10 @@ const selectAllLocations = (event) => {
               v-model="location.value"
               type="checkbox"
               class="app-form__checkbox"
-              @change="onLocationsChange"
               :name="location.id"
               :id="location.id"
               :disabled="disableAll"
+              @change="onLocationsChange"
             />
             <label :for="location.id" class="app-form__list-item-label">{{ location.name }}</label>
           </li>

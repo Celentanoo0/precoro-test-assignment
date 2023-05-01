@@ -1,5 +1,5 @@
 <script setup>
-import { computed, provide, ref, toRefs } from 'vue'
+import { computed, inject, provide, ref } from 'vue'
 import AppRolesForm from '@/components/AppRolesForm/AppRolesForm.vue'
 import AppMainInfoForm from '@/components/AppMainInfoForm/AppMainInfoForm.vue'
 import AppLocationsForm from '@/components/AppLocationsForm/AppLocationsForm.vue'
@@ -9,14 +9,15 @@ const components = {
   AppLocationsForm,
   AppRolesForm
 }
-const props = defineProps({
-  tabs: {
-    type: Array,
-    required: true,
-    default: () => []
-  }
-})
-const { tabs } = toRefs(props)
+// const props = defineProps({
+//   tabs: {
+//     type: Array,
+//     required: true,
+//     default: () => []
+//   }
+// })
+// ddddddddd
+// const { tabs } = toRefs(props)
 const tabsData = ref({
   firstName: '',
   secondName: '',
@@ -168,14 +169,19 @@ const tabsData = ref({
 const disableAll = ref(false)
 
 provide('tabsData', tabsData)
+const tabs = inject('tabs');
 
-const activeTab = ref(tabs.value[0].tabComponentName)
+const activeTab = ref(tabs.value?.[0].tabComponentName)
+provide('activeTab', activeTab)
 
 const changeActiveTab = (newActiveTabName) => {
   activeTab.value = newActiveTabName
 }
 const checkValidation = () => {}
 const nextTab = () => {
+  // dddddd
+  // Mojno proveryat vse li polya zapolneni i obernut v uslovie to chto nije
+  tabs.value.find((tabData) => tabData.tabComponentName === activeTab.value).submitted = true;
   activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
   // dddddddd
   // проверять если все заполненно и отвалидированно, то менять в родительском компоненте
@@ -193,6 +199,7 @@ const lastTabIsReached = computed(
 const actionBtnText = computed(() => {
   return lastTabIsReached.value ? 'Next Step' : 'Invite User'
 })
+
 </script>
 
 <template>
@@ -201,8 +208,15 @@ const actionBtnText = computed(() => {
       <li
         v-for="(tabNavItem, index) of tabs"
         :key="index"
-        class="app-tabs__nav-item"
-        :class="{ 'tab_active-main': tabNavItem.tabComponentName === activeTab }"
+        :class="[
+          'app-tabs__nav-item',
+          {
+            // dddddddd
+            // Izmenit na modificator app-tabs__nav-item--main
+            'tab_active-main': tabNavItem.tabComponentName === activeTab,
+            'app-tabs__nav-item--submitted': tabNavItem.submitted,
+          },
+        ]"
       >
         <button class="app-tabs__nav-button" @click="changeActiveTab(tabNavItem.tabComponentName)">
           <span

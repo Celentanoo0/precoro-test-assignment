@@ -154,7 +154,7 @@ const onManagementChange = () => {
       </div>
     </div>
     <div class="app-form__row">
-      <div class="app-form__row-block">
+      <div class="app-form__row-block app-form__row-block--description">
         <img src="src/assets/info.svg" alt="info-img" />
         <p>
           The user becomes a <span>Power user</span> if at least ONE of the following roles is
@@ -167,27 +167,42 @@ const onManagementChange = () => {
 </template>
 
 <style lang="scss" scoped>
+.app-form__row{
+  .app-form__row-block--description{
+    display: flex;
+    flex-direction: column;
+    img{
+      max-width: 20px;
+    }
+  }
+}
+
 .app-form__row_flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  max-width: 100%;
   border: 1px solid red;
+  //gap: 30px;
 }
 
 .app-form__row-block_flex {
-  flex: 0 1 70%; /* Change the width of the first row block */
+  flex: 0 1 calc(70% - 30px); /* Change the width of the first row block */
 }
+//.app-form__row-block_flex:first-child {
+//  border-right: 1px solid #DDDEE5;
+//}
 
 .app-form__row-block_flex:last-child {
-  flex: 0 1 30%; /* Change the width of the second row block */
-  border: 1px solid blue;
+  flex: 0 1 calc(30% - 30px); /* Change the width of the second row block */
+  //border: 1px solid blue;
 }
 
 .app-form__row-block {
   display: grid;
   grid-template-columns: 1fr 20% 20% 20% 20%;
   grid-template-rows: repeat(9, auto);
-  grid-gap: 10px;
+  //grid-gap: 10px;
 }
 
 .app-form__row-item {
