@@ -1,5 +1,6 @@
 <script setup>
 import { inject, ref, toRefs } from 'vue'
+import {formControlChanged} from "@/composables/formControlChanged";
 
 const props = defineProps({
   disableAll: {
@@ -15,26 +16,32 @@ const mainLocations = ['Main Precoro US', 'Ukraine', 'USA']
 const tabsData = inject('tabsData')
 const selectAllLocationCheckboxes = ref(false);
 const onLocationsChange = () => {
-  formControlChanged(activeTab);
+  formControlChanged(tabs.value, activeTab.value);
   selectAllLocationCheckboxes.value = false;
 }
 const selectAllLocations = (event) => {
-  formControlChanged(activeTab);
+  // ddddddd
+  // formControlChanged(activeTab);
+  formControlChanged(tabs.value, activeTab.value);
   if (event.target.checked) {
-    for (const elem of tabsData.value.locations) {
+    // dddddddd
+    // for (const elem of tabsData.value.locations) {
+    //   elem.value = true
+    // }
+    for (const elem of tabsData.locations) {
       elem.value = true
     }
 
     return
   }
-  for (const elem of tabsData.value.locations) {
+  for (const elem of tabsData.locations) {
     elem.value = false
   }
 }
 // Sdelat composable
-const formControlChanged = (activeTabName) => tabs.value.find(
-  (tabItem) => tabItem.tabComponentName === activeTabName,
-).submitted = false;
+// const formControlChanged = (activeTabName) => tabs.value.find(
+//   (tabItem) => tabItem.tabComponentName === activeTabName,
+// ).submitted = false;
 </script>
 
 <template>
@@ -48,7 +55,7 @@ const formControlChanged = (activeTabName) => tabs.value.find(
           id="main-location"
           class="app-form__select-item"
           :disabled="disableAll"
-          @change="formControlChanged(activeTab)"
+          @change="formControlChanged(tabs, activeTab)"
         >
           <option
             v-for="(mainLocation, index) of mainLocations"

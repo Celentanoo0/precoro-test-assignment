@@ -34,13 +34,13 @@ const accessLevels = ref([
 ]);
 const managementSelectAll = ref(false);
 const fullAccessGranted = computed(
-  () => tabsData.value.roles.management.find((elem) => elem.id === 'admin')?.value
+  () => tabsData.roles.management.find((elem) => elem.id === 'admin')?.value
 )
 const getDisabledAccessButtons = (accessButtonId) => {
   return accessButtonId !== 'admin' ? fullAccessGranted.value : false
 }
 const selectAllAccessCheckboxes = (accessLevelKeyName, accessLevelValue) => {
-  tabsData.value.roles.access.forEach((accessArea) => {
+  tabsData.roles.access.forEach((accessArea) => {
     if (typeof accessArea.values[accessLevelKeyName] === 'boolean') {
       accessArea.values[accessLevelKeyName] = accessLevelValue;
     }
@@ -49,7 +49,7 @@ const selectAllAccessCheckboxes = (accessLevelKeyName, accessLevelValue) => {
 const selectAllManagementCheckboxes = (event) => {
   const managementValue = event.target.checked;
 
-  tabsData.value.roles.management.forEach((managementItem) => {
+  tabsData.roles.management.forEach((managementItem) => {
     if (managementItem.id !== 'admin') {
       managementItem.value = managementValue;
     }
@@ -68,8 +68,8 @@ const onManagementChange = () => {
 
 <template>
   <form action="#" class="app-form">
-    <div class="app-form__row app-form__row_flex">
-      <div class="app-form__row-block app-form__row-block_flex">
+    <div class="app-form__row app-form__row--flex app-form__row--flex--margin">
+      <div class="app-form__row-block app-form__row-block--flex app-form__row-block--first-block">
         <div class="app-form__row-item">
           <div class="app-form__row-item-name">Access to:</div>
           <div
@@ -120,10 +120,10 @@ const onManagementChange = () => {
           </div>
         </div>
       </div>
-      <div class="app-form__row-block_one-row app-form__row-block_flex">
-        <div class="app-form__row-item">Management: <img src="src/assets/info.svg" alt="info-img"></div>
+      <div class="app-form__row-block--one-row app-form__row-block--flex">
+        <div class="app-form__row-item--management">Management: <img src="src/assets/info.svg" alt="info-img"></div>
         <ul class="app-form__list">
-          <li class="app-form__list-item">
+          <li class="app-form__list-item app-form__list-item-all">
             <input
               v-model="managementSelectAll"
               type="checkbox"
@@ -157,7 +157,7 @@ const onManagementChange = () => {
       <div class="app-form__row-block app-form__row-block--description">
         <img src="src/assets/info.svg" alt="info-img" />
         <p>
-          The user becomes a <span>Power user</span> if at least ONE of the following roles is
+          The user becomes a <a href="#">Power user</a> if at least ONE of the following roles is
           selected: Approve, View only, Configuration, Suppliers and Items, Budgets, Warehouse
           manager.
         </p>
@@ -170,39 +170,92 @@ const onManagementChange = () => {
 .app-form__row{
   .app-form__row-block--description{
     display: flex;
-    flex-direction: column;
+    font-size: 12px;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgba(244, 244, 255, 0.5);
+    border-radius: 8px;
+    font-weight: 500;
+    line-height: 18px;
+    color: rgba(29, 36, 82, 0.5);
+    a{
+      text-decoration: underline;
+    }
     img{
       max-width: 20px;
     }
   }
 }
 
-.app-form__row_flex {
+.app-form__row-item--management{
   display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  color: #676F8F;
+  gap: 7px;
+  img{
+    max-width: 20px;
+  }
+}
+.app-form__list{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 23px;
+  gap: 6px;
+}
+.app-form__list-item{
+  display: flex;
+  gap: 10px;
+  color: #676F8F
+}
+.app-form__list-item-all{
+  font-weight: 600;
+}
+
+.app-form__row-block--one-row{
+  padding: 10px;
+}
+
+.app-form__row--flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   justify-content: space-between;
   max-width: 100%;
-  border: 1px solid red;
-  //gap: 30px;
 }
 
-.app-form__row-block_flex {
-  flex: 0 1 calc(70% - 30px); /* Change the width of the first row block */
+.app-form__row--flex--margin{
+  margin-bottom: 32px;
 }
-//.app-form__row-block_flex:first-child {
-//  border-right: 1px solid #DDDEE5;
-//}
 
-.app-form__row-block_flex:last-child {
-  flex: 0 1 calc(30% - 30px); /* Change the width of the second row block */
-  //border: 1px solid blue;
+.app-form__row-block--first-block{
+  text-align: center;
+  padding: 10px;
+}
+
+.app-form__row-block--flex {
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  flex: 0 1 calc(70%); /* Change the width of the first row block */
+}
+
+.app-form__row-block--flex:last-child {
+  flex: 0 1 calc(30%);
 }
 
 .app-form__row-block {
   display: grid;
-  grid-template-columns: 1fr 20% 20% 20% 20%;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   grid-template-rows: repeat(9, auto);
-  //grid-gap: 10px;
 }
 
 .app-form__row-item {
@@ -211,6 +264,10 @@ const onManagementChange = () => {
 
 .app-form__row-item-name {
   grid-column: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: start;
 }
 
 .app-form__row-item-values {
@@ -233,5 +290,31 @@ const onManagementChange = () => {
 
 .app-form__row-item-values:nth-child(5) {
   grid-column: 5;
+}
+
+@media (min-width: 767px) {
+  .app-form__row--flex{
+    flex-direction: row;
+  }
+  .app-form__row-block--flex:first-child {
+    border-right: 1px solid #DDDEE5;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 24px;
+    color: #676F8F;
+    text-align: right;
+  }
+
+  .app-form__row-item-values{
+    height: 100%;
+  }
+
+  .app-form__row{
+    .app-form__row-block--description{
+      font-size: 14px;
+      line-height: 18px;
+      max-width: 80%;
+    }
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 <script setup>
 import { inject, toRefs } from 'vue'
+import {formControlChanged} from "@/composables/formControlChanged";
 
 const props = defineProps({
   disableAll: {
@@ -9,6 +10,8 @@ const props = defineProps({
   }
 })
 const { disableAll } = toRefs(props)
+const tabs = inject('tabs');
+const activeTab = inject('activeTab');
 const tabsData = inject('tabsData')
 const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
 </script>
@@ -25,6 +28,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="first-name"
           class="app-form__control app-form__control_margin"
           :disabled="disableAll"
+          @input="formControlChanged(tabs, activeTab)"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
@@ -36,6 +40,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="second-name"
           class="app-form__control app-form__control_margin"
           :disabled="disableAll"
+          @input="formControlChanged(tabs, activeTab)"
         />
       </div>
     </div>
@@ -49,6 +54,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="email"
           class="app-form__control app-form__control_margin"
           :disabled="disableAll"
+          @input="formControlChanged(tabs, activeTab)"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
@@ -60,6 +66,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="phone"
           class="app-form__control app-form__control_margin"
           :disabled="disableAll"
+          @input="formControlChanged(tabs, activeTab)"
         />
       </div>
     </div>
@@ -74,6 +81,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="position"
           class="app-form__control app-form__control_margin"
           :disabled="disableAll"
+          @input="formControlChanged(tabs, activeTab)"
         />
       </div>
       <div class="app-form__row-block app-form__row-block_ml-20">
@@ -83,6 +91,7 @@ const companiesAvailable = ['Precoro', 'Google', 'Microsoft']
           id="company-select"
           :disabled="disableAll"
           class="app-form__control app-form__control_margin"
+          @change="formControlChanged(tabs, activeTab)"
         >
           <option v-for="(companyName, index) of companiesAvailable" :key="index">
             {{ companyName }}
