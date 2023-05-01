@@ -64,8 +64,9 @@ const tabsData = ref({
     }
   ],
   roles: {
-    access: {
-      warehouse_requests: {
+    access: [
+      {
+        id: 'warehouse_requests',
         name: 'Warehouse requests',
         values: {
           view_only: false,
@@ -73,7 +74,8 @@ const tabsData = ref({
           approve: false
         }
       },
-      purchase_requests: {
+      {
+        id: 'purchase_requests',
         name: 'Purchase requests',
         values: {
           view_only: false,
@@ -81,7 +83,8 @@ const tabsData = ref({
           approve: false
         }
       },
-      request_for_proposals: {
+      {
+        id: 'purchase_requests',
         name: 'Request for proposals',
         values: {
           view_only: false,
@@ -89,7 +92,8 @@ const tabsData = ref({
           approve: false
         }
       },
-      purchase_orders: {
+      {
+        id: 'purchase_orders',
         name: 'Purchase orders',
         values: {
           view_only: false,
@@ -97,7 +101,8 @@ const tabsData = ref({
           approve: false
         }
       },
-      receipts: {
+      {
+        id: 'receipts',
         name: 'Receipts',
         values: {
           view_only: false,
@@ -105,7 +110,8 @@ const tabsData = ref({
           approve: false
         }
       },
-      invoices: {
+      {
+        id: 'invoices',
         name: 'Invoices',
         values: {
           view_only: false,
@@ -114,7 +120,8 @@ const tabsData = ref({
           pay: false
         }
       },
-      expenses: {
+      {
+        id: 'expenses',
         name: 'Expenses',
         values: {
           view_only: false,
@@ -123,7 +130,7 @@ const tabsData = ref({
           pay: false
         }
       }
-    },
+    ],
     management: [
       {
         name: 'Configuration',
@@ -170,12 +177,14 @@ const changeActiveTab = (newActiveTabName) => {
 const checkValidation = () => {}
 const nextTab = () => {
   activeTab.value = Object.keys(components)[Object.keys(components).indexOf(activeTab.value) + 1]
+  // dddddddd
+  // проверять если все заполненно и отвалидированно, то менять в родительском компоненте
+  // tabs[index].submitted = true,
 }
 const submitPopup = () => {
   checkValidation()
   disableAll.value = true
-  const dataToSend = JSON.stringify(tabsData.value)
-  console.log(dataToSend)
+  console.log(tabsData.value)
 }
 
 const lastTabIsReached = computed(
@@ -238,8 +247,8 @@ const actionBtnText = computed(() => {
       </div>
       <button
         :disabled="false"
-        @click="lastTabIsReached ? nextTab() : submitPopup()"
         class="app-tabs__tab-submit-button"
+        @click="lastTabIsReached ? nextTab() : submitPopup()"
       >
         {{ actionBtnText }}
       </button>

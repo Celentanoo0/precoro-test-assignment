@@ -4,15 +4,18 @@ import AppTabs from '@/components/AppTabs/AppTabs.vue'
 const tabs = [
   {
     tabName: 'Main Info',
-    tabComponentName: 'AppMainInfoForm'
+    tabComponentName: 'AppMainInfoForm',
+    submitted: false,
   },
   {
     tabName: 'Available Locations',
-    tabComponentName: 'AppLocationsForm'
+    tabComponentName: 'AppLocationsForm',
+    submitted: false,
   },
   {
     tabName: 'Roles',
-    tabComponentName: 'AppRolesForm'
+    tabComponentName: 'AppRolesForm',
+    submitted: false,
   }
 ]
 </script>
