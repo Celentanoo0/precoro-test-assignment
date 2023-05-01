@@ -77,9 +77,9 @@ provide('disableAll', formElementsDisabled);
 .app-popup {
   background: #ffffff;
   box-shadow: 0 8px 16px rgba(54, 62, 113, 0.24);
-  border-radius: 16px;
   padding: 24px;
-  flex: 0 1 80%;
+  border-radius: 16px;
+  flex: 0 1 90%;
 
   &__header {
     display: flex;
@@ -106,6 +106,12 @@ provide('disableAll', formElementsDisabled);
         max-width: 100%;
       }
     }
+  }
+}
+
+@media (min-width: 767px) {
+  .app-popup{
+    flex: 0 1 80%;
   }
 }
 </style>

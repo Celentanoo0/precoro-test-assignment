@@ -108,7 +108,7 @@ const tabsData = inject('tabsData');
   &__row-block {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    flex: 0 1 100%;
   }
 
   &__control-name {
