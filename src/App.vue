@@ -20,14 +20,19 @@ const tabs = reactive([
   }
 ]);
 const popupIsOpen = ref(true);
+const formElementsDisabled = ref(false);
 const closePopup = () => {
   popupIsOpen.value = false;
 };
 const openPopup = () => {
   popupIsOpen.value = true;
+  if(!formElementsDisabled.value){
+    formElementsDisabled.value = true;
+  }
 };
 
 provide('tabs', tabs);
+provide('disableAll', formElementsDisabled);
 </script>
 
 <template>

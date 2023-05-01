@@ -1,16 +1,9 @@
 <script setup>
-import { inject, toRefs } from 'vue';
+import { inject } from 'vue';
 import { formControlChanged } from '@/composables/formControlChanged';
 import { companiesAvailable } from '@/components/AppMainInfoForm/constants';
 
-const props = defineProps({
-  disableAll: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-});
-const { disableAll } = toRefs(props);
+const disableAll = inject('disableAll');
 const tabs = inject('tabs');
 const activeTab = inject('activeTab');
 const tabsData = inject('tabsData');

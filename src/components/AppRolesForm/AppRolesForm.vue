@@ -1,14 +1,7 @@
 <script setup>
-import { computed, inject, ref, toRefs } from 'vue';
+import { computed, inject, ref } from 'vue';
 
-const props = defineProps({
-  disableAll: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-});
-const { disableAll } = toRefs(props);
+const disableAll = inject('disableAll');
 const tabsData = inject('tabsData');
 const accessLevels = ref([
   {
